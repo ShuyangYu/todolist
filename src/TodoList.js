@@ -1,9 +1,15 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 
 class TodoList extends Component {
     render() {
         return (
-            <div><input /> <button>submit</button></div>
+            <Fragment>
+                <div><input /> <button>submit</button></div>
+                <ul>
+                    <li>learn</li>
+                    <li>pratice</li>
+                </ul>
+            </Fragment>
         )
     }
 }
