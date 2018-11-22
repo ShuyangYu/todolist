@@ -6,7 +6,7 @@ class TodoList extends Component {
         super(props);//由于使用了extends，这里的super代表父类
         this.state = {
             inputValue : '',
-            list : []
+            list : ['ni', 'hao'],
         }//数据要定义在状态里
     }
     render() {
@@ -18,11 +18,21 @@ class TodoList extends Component {
                         value={this.state.inputValue} 
                         onChange={this.handleInputChange.bind(this)}
                     /> 
-                    <button>submit</button>
+                    <button onClick={this.handleBtnClick.bind(this)}>submit</button>
                 </div>
                 <ul>
-                    <li>learn</li>
-                    <li>pratice</li>
+                    {
+                        this.state.list.map((item, index) => {
+                            return (
+                            <li 
+                                key={index} 
+                                // 循环渲染时，需要给每一项增加key值，但是不太好
+                                onClick={this.handleItemDelete.bind(this, index)}
+                            >
+                            {item}
+                            </li>)
+                        })
+                    }
                 </ul>
             </Fragment>
         )
@@ -32,6 +42,21 @@ class TodoList extends Component {
             inputValue : e.target.value
         })
     }
+    handleBtnClick() {
+        this.setState({
+            list: [...this.state.list, this.state.inputValue],
+            inputValue: ''
+        })
+    }
+    handleItemDelete(index) {
+        // immutable state 不允许任何改变
+        const list = [...this.state.list];
+        list.splice(index, 1);
+
+        this.setState({
+            list: list
+        })
+        }
 }
 
 export default TodoList;
