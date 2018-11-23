@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-
+import './style.css'
 class TodoList extends Component {
 
     constructor(props) {
@@ -12,9 +12,12 @@ class TodoList extends Component {
     render() {
         return (
             //定义inputValue之后输入框中的内容不再变化
-            <Fragment>
+            <Fragment>{/* 是一个组件*/}
+                <label htmlFor='insertArea'>输入内容</label>
                 <div>
                     <input 
+                        id='insertArea'
+                        className='input'
                         value={this.state.inputValue} 
                         onChange={this.handleInputChange.bind(this)}
                     /> 
@@ -24,13 +27,14 @@ class TodoList extends Component {
                     {
                         this.state.list.map((item, index) => {
                             return (
-                            <li 
-                                key={index} 
-                                // 循环渲染时，需要给每一项增加key值，但是不太好
-                                onClick={this.handleItemDelete.bind(this, index)}
-                            >
-                            {item}
-                            </li>)
+                                <li 
+                                    key={index} 
+                                    // 循环渲染时，需要给每一项增加key值，但是不太好
+                                    onClick={this.handleItemDelete.bind(this, index)}
+                                    dangerouslySetInnerHTML={{__html: item}} // 可以在提交框内输入html标签
+                                >
+                                {/* {item} */}
+                                </li>)
                         })
                     }
                 </ul>
