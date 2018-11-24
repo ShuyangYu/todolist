@@ -8,6 +8,17 @@ class TodoItem extends Component {
         super(props);
         this.handleClick= this.handleClick.bind(this); //性能有优化
     }
+
+    // 当组件接收到父组件的参数，只要父组件的render函数执行，子组件的componentWillReceiveProps就会被执行
+    componentWillReceiveProps() {
+        console.log('TodoItem componentWillReceiveProps')
+    }
+
+    // 当这个组件即将从页面中剔除的时候会被执行
+    componentWillUnmount() {
+        console.log('TodoItem componentWillUnmount');
+    }
+
     render() {
         const { content } = this.props;
         return (

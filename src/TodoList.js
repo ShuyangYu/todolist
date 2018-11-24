@@ -7,6 +7,8 @@ class TodoList extends Component {
 
     constructor(props) {
         super(props);//由于使用了extends，这里的super代表父类
+        // 当组件的state或者props发生改变的时候，render函数就会重新执行
+        // 当父组件的rendre函数被运行时，他的子组件的render函数也将被重新运行一次
         this.state = {
             inputValue : '',
             list : [],
@@ -17,7 +19,36 @@ class TodoList extends Component {
         this.handleItemDelete = this.handleItemDelete.bind(this)
 
     }
+    // 生命周期函数
+
+    // 当组件即将被挂载到页面的时候自动执行
+    componentWillMount() {
+        console.log('componentWillMount');
+    }
+
+    // 当组件被挂载到页面的时候自动执行
+    componentDidMount() {
+        console.log('componentDidMount');
+    }
+
+    // 组件被更新之前自动执行
+    shouldComponentUpdate() {
+        console.log('shouldComponentUpdate');
+        return true; // 若返回false则组件不会更新
+    }
+
+    // 组件被更新之前自动执行, shouldComponentUpdate返回True之后执行
+    componentWillUpdate() {
+        console.log('componentWillUpdate');
+    }
+
+    // 组件执行完之后
+    componentDidUpdate() {
+        console.log('componentDidUpdate');
+    }
+
     render() {
+        console.log('render')
         return (
             //定义inputValue之后输入框中的内容不再变化
             <Fragment>{/* 是一个组件*/}
@@ -28,7 +59,8 @@ class TodoList extends Component {
                         className='input'
                         value={this.state.inputValue} 
                         onChange={this.handleInputChange}
-                    /> 
+                        ref={(input) => {this.input = input}}
+                    /> {/* this.inpuyt 指向input框的dom*/}
                     <button onClick={this.handleBtnClick}>submit</button>
                 </div>
                 <ul>
@@ -63,9 +95,9 @@ class TodoList extends Component {
         })
     }
 
-    handleInputChange(e) {
+    handleInputChange() {
         // 新版react支持写法, 变成异步，提升性能
-        const value = e.target.value;
+        const value = this.input.value;
         this.setState(() => ({
             inputValue : value
         }))
