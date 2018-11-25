@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import TodoItem from './TodoItem';
 import './style.css';
-
+import axios from 'axios'
 
 class TodoList extends Component {
 
@@ -20,14 +20,20 @@ class TodoList extends Component {
 
     }
     // 生命周期函数
-
     // 当组件即将被挂载到页面的时候自动执行
     componentWillMount() {
         console.log('componentWillMount');
     }
 
-    // 当组件被挂载到页面的时候自动执行
+    // 当组件被挂载到页面的时候自动执行,用来发送ajax请求
     componentDidMount() {
+        axios.get('/api/todolist')
+            .then((res) => {
+                this.setState(() => ({
+                    list: [...res.data]
+                })
+            )})
+            .catch(() => {alert('error')})
         console.log('componentDidMount');
     }
 

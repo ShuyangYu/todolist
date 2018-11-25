@@ -19,6 +19,15 @@ class TodoItem extends Component {
         console.log('TodoItem componentWillUnmount');
     }
 
+    // 当父组件被渲染时，阻止子组件渲染，提高性能
+    shouldComponentUpdate(nextProps, nextState) {
+        if(nextProps.content !== this.props.content) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     render() {
         const { content } = this.props;
         return (
