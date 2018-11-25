@@ -2,12 +2,39 @@
     border: 1px solid red;
 }
 
-.show {
+/* 使用transition-group实现动画效果 */
+.fader-enter {
+    opacity: 0;
+}
+
+.fade-enter-active {
+    opacity: 1;
+    transition: opacity 1s ease-in;
+}
+
+.fade-enter-done {
+    opacity: 1;
+}
+
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit-active {
+    opacity: 0;
+    transition: opacity 1s ease-in;
+}
+
+.fade-exit-done {
+    opacity: 0;
+}
+
+/* .show {
     animation: show-item 2s ease-in forwards;
 }
 
 .hide {
-    /* forwards 在最后一帧结束时保存样式 */
     animation: hide-item 2s ease-in forwards;
 }
 
@@ -43,4 +70,4 @@
         opacity: 0;
         color:blue;
     }
-}
+} */
