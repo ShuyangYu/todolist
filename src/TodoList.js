@@ -1,8 +1,45 @@
 import React, { Component, Fragment } from 'react';
 import TodoItem from './TodoItem';
+import { Input, Button, List } from 'antd';
+import 'antd/dist/antd.css';
 import './style.css';
 import axios from 'axios'
 
+const data = [
+    'Racing car sprays burning fuel into crowd.',
+    'Japanese princess to wed commoner.',
+    'Australian walks 100km after outback crash.',
+    'Man charged over missing wedding girl.',
+    'Los Angeles battles huge wildfires.',
+];
+
+class TodoList extends Component {
+    constructor(props) {
+        super(props)
+
+    }
+
+    render() {
+        return (
+            <div style={{marginTop: '10px', marginLeft: '10px'}}>
+                <Input placeholder='todo info' style={{width: '300px', marginRight: '10px'}}/>
+                <Button type='primary'>submit</Button>
+
+                    <List
+                        style={{marginTop: '10px', width: '300px'}}
+                        size="small"
+                        bordered
+                        dataSource={data}
+                        renderItem={item => (<List.Item>{item}</List.Item>)}
+                    />
+                <div>hello</div>
+            </div>
+        )
+    }
+}
+
+export default TodoList
+/*
 class TodoList extends Component {
 
     constructor(props) {
@@ -57,7 +94,7 @@ class TodoList extends Component {
         console.log('render')
         return (
             //定义inputValue之后输入框中的内容不再变化
-            <Fragment>{/* 是一个组件*/}
+            <Fragment>
                 <label htmlFor='insertArea'>输入内容</label>
                 <div>
                     <input 
@@ -66,7 +103,7 @@ class TodoList extends Component {
                         value={this.state.inputValue} 
                         onChange={this.handleInputChange}
                         ref={(input) => {this.input = input}}
-                    /> {/* this.inpuyt 指向input框的dom*/}
+                    /> 
                     <button onClick={this.handleBtnClick}>submit</button>
                 </div>
                 <ul>
@@ -89,13 +126,13 @@ class TodoList extends Component {
                         dangerouslySetInnerHTML={{__html: item}} // 可以在提交框内输入html标签
                     >
                     { {item} }
-                    </li> */}
+                    </li> }
                     <TodoItem 
                         content={item}  
                         index={index}
                         handleItemDelete={this.handleItemDelete} 
-                    />{/* 父组件将item利用属性的方式传递给子组件，名称为item， 父组件将handleItemDelete这个方法利用属性的方式传递给子组件，使子组件能够调用父组件的方法*/ }
-                    {/* this.handleItemDelete是父组件的方法，因此子组件在调用时需要绑定this*/ }
+                    />{/* 父组件将item利用属性的方式传递给子组件，名称为item， 父组件将handleItemDelete这个方法利用属性的方式传递给子组件，使子组件能够调用父组件的方法 }
+                    {/* this.handleItemDelete是父组件的方法，因此子组件在调用时需要绑定this }
                 </div>
             )
         })
@@ -137,3 +174,5 @@ class TodoList extends Component {
 }
 
 export default TodoList;
+
+*/
