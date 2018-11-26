@@ -11,12 +11,18 @@ class TodoList extends Component {
     constructor(props) {
         super(props);
         this.state = store.getState();
+        this.handleInputChange = this.handleInputChange.bind(this)
     }
 
     render() {
         return (
             <div style={{marginTop: '10px', marginLeft: '10px'}}>
-                <Input placeholder='todo info' value={this.state.inputValue} style={{width: '300px', marginRight: '10px'}}/>
+                <Input 
+                    placeholder='todo info' 
+                    value={this.state.inputValue} 
+                    onChange={this.handleInputChange} 
+                    style={{width: '300px', marginRight: '10px'}}
+                />
                 <Button type='primary'>submit</Button>
 
                     <List
@@ -29,6 +35,14 @@ class TodoList extends Component {
                 <div>hello</div>
             </div>
         )
+    }
+
+    handleInputChange(e) {
+        const action = {
+            type: 'changeInputValue',
+            value: e.target.value
+        };
+        store.dispatch(action);
     }
 }
 
