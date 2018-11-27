@@ -1,5 +1,5 @@
 const defaultState = {
-    inputValue: 'your to do list',
+    inputValue: '',
     list: ['learn', 'pratice']
 } // 默认存储为空
 
@@ -16,6 +16,12 @@ export default (state = defaultState, action) => {
         const newState = JSON.parse(JSON.stringify(state));
         newState.list = [...newState.list, newState.inputValue];
         newState.inputValue = ''
+        return newState;
+    }
+
+    if (action.type === 'deleteListItem') {
+        const newState = JSON.parse(JSON.stringify(state));
+        newState.list.splice(action.index, 1);
         return newState;
     }
     return state;

@@ -14,6 +14,8 @@ class TodoList extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleStoreChange = this.handleStoreChange.bind(this);
         this.handleBtnClick = this.handleBtnClick.bind(this);
+        this.handleItemDelete = this.handleItemDelete.bind(this);
+
         store.subscribe(this.handleStoreChange);
     }
 
@@ -33,7 +35,9 @@ class TodoList extends Component {
                         size="small"
                         bordered
                         dataSource={this.state.list}
-                        renderItem={item => (<List.Item>{item}</List.Item>)}
+                        renderItem={(item, index) => (
+                            <List.Item onClick={this.handleItemDelete.bind(index)}> { item } </List.Item>
+                        )}
                     />
                 <div>hello</div>
             </div>
@@ -57,6 +61,14 @@ class TodoList extends Component {
             type: 'changeListItem',
         };
         store.dispatch(action);
+    }
+
+    handleItemDelete(index) {
+        const action = {
+            type: 'deleteListItem',
+            deleteIndex: index
+        };
+        store.dispatch(action); 
     }
 }
 
