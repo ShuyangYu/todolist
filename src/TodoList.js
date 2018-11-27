@@ -5,7 +5,7 @@ import 'antd/dist/antd.css';
 import './style.css';
 import axios from 'axios'
 import store from './store'
-import { CHANGE_INPUT_VALUE, CHANGE_LIST_ITEM, DELETE_LIST_ITEM} from './store/actionTypes'
+import { getInputChangeAction, getAddItemAction, getItemDeleteAction } from './store/actionCreators'
 
 class TodoList extends Component {
     constructor(props) {
@@ -45,10 +45,7 @@ class TodoList extends Component {
     }
 
     handleInputChange(e) {
-        const action = {
-            type: CHANGE_INPUT_VALUE,
-            value: e.target.value
-        };
+        const action = getInputChangeAction(e.target.value);
         store.dispatch(action);
     }
 
@@ -57,17 +54,12 @@ class TodoList extends Component {
     }
 
     handleBtnClick() {
-        const action = {
-            type: CHANGE_LIST_ITEM,
-        };
+        const action = getAddItemAction()
         store.dispatch(action);
     }
 
     handleItemDelete(index) {
-        const action = {
-            type: DELETE_LIST_ITEM,
-            deleteIndex: index
-        };
+        const action = getItemDeleteAction(index);
         store.dispatch(action); 
     }
 }
