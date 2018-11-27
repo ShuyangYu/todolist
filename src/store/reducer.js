@@ -1,3 +1,6 @@
+import { CHANGE_INPUT_VALUE, CHANGE_LIST_ITEM, DELETE_LIST_ITEM} from './actionTypes'
+
+
 const defaultState = {
     inputValue: '',
     list: ['learn', 'pratice']
@@ -6,20 +9,20 @@ const defaultState = {
 
 // reducer 可以接受state，但是不能修改state
 export default (state = defaultState, action) => {
-    if (action.type === 'changeInputValue') {
+    if (action.type === CHANGE_INPUT_VALUE) {
         const newState = JSON.parse(JSON.stringify(state));
         newState.inputValue = action.value;
         return newState;
     }
 
-    if (action.type === 'changeListItem') {
+    if (action.type === CHANGE_LIST_ITEM) {
         const newState = JSON.parse(JSON.stringify(state));
         newState.list = [...newState.list, newState.inputValue];
         newState.inputValue = ''
         return newState;
     }
 
-    if (action.type === 'deleteListItem') {
+    if (action.type === DELETE_LIST_ITEM) {
         const newState = JSON.parse(JSON.stringify(state));
         newState.list.splice(action.index, 1);
         return newState;
