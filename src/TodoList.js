@@ -1,16 +1,16 @@
 import React, { Component, Fragment } from 'react';
 import TodoItem from './TodoItem';
-import { Input, Button, List } from 'antd';
-import 'antd/dist/antd.css';
-import './style.css';
 import axios from 'axios'
 import store from './store'
 import { getInputChangeAction, getAddItemAction, getItemDeleteAction } from './store/actionCreators'
+import TodoListUI from './TodoListUI'
+
 
 class TodoList extends Component {
     constructor(props) {
         super(props);
         this.state = store.getState();
+
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleStoreChange = this.handleStoreChange.bind(this);
         this.handleBtnClick = this.handleBtnClick.bind(this);
@@ -20,28 +20,14 @@ class TodoList extends Component {
     }
 
     render() {
-        return (
-            <div style={{marginTop: '10px', marginLeft: '10px'}}>
-                <Input 
-                    placeholder='todo info' 
-                    value={this.state.inputValue} 
-                    onChange={this.handleInputChange} 
-                    style={{width: '300px', marginRight: '10px'}}
+        return <TodoListUI 
+                    inputValue={this.state.inputValue}
+                    list={this.state.list}
+                    handleInputChange={this.handleInputChange}
+                    handleStoreChange={this.handleStoreChange}
+                    handleBtnClick={this.handleBtnClick}
+                    handleItemDelete={this.handleItemDelete}
                 />
-                <Button type='primary' onClick={this.handleBtnClick}>submit</Button>
-
-                    <List
-                        style={{marginTop: '10px', width: '300px'}}
-                        size="small"
-                        bordered
-                        dataSource={this.state.list}
-                        renderItem={(item, index) => (
-                            <List.Item onClick={this.handleItemDelete.bind(index)}> { item } </List.Item>
-                        )}
-                    />
-                <div>hello</div>
-            </div>
-        )
     }
 
     handleInputChange(e) {
@@ -64,7 +50,7 @@ class TodoList extends Component {
     }
 }
 
-export default TodoList
+export default TodoList;
 /*
 class TodoList extends Component {
 
