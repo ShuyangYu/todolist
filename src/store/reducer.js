@@ -6,12 +6,18 @@ const defaultState = {
 
 // reducer 可以接受state，但是不能修改state
 export default (state = defaultState, action) => {
-    if (action.value === 'changeInputValue') {
+    if (action.type === 'changeInputValue') {
         const newState = JSON.parse(JSON.stringify(state));
         newState.inputValue = action.value;
         return newState;
     }
-    console.log(state, action)
+
+    if (action.type === 'changeListItem') {
+        const newState = JSON.parse(JSON.stringify(state));
+        newState.list = [...newState.list, newState.inputValue];
+        newState.inputValue = ''
+        return newState;
+    }
     return state;
 }
 // 
