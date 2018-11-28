@@ -1,4 +1,5 @@
-import { CHANGE_INPUT_VALUE, CHANGE_LIST_ITEM, DELETE_LIST_ITEM, GET_AJAX_LIST_ITEM} from './actionTypes'
+import { CHANGE_INPUT_VALUE, CHANGE_LIST_ITEM, DELETE_LIST_ITEM, INIT_LIST_ACTION} from './actionTypes'
+import axios from 'axios'
 
 
 export const getInputChangeAction = (value) => ({
@@ -15,7 +16,19 @@ export const getItemDeleteAction = (index) => ({
     index
 })
 
-export const getAjaxItemListAction = (data) => ({
-    type: GET_AJAX_LIST_ITEM,
+export const initListAction = (data) => ({
+    type: INIT_LIST_ACTION,
     data
 })
+
+export const getAjaxItemListAction = () => {
+    return (dispatch) => {
+        axios.get('/api/itemList')
+        .then((res) => {
+            const data = res.data;
+            const action = initListAction(data);
+            // console.log(action);
+            dispatch(action);
+        })
+    }
+}

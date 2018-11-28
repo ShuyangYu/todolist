@@ -1,4 +1,4 @@
-import { CHANGE_INPUT_VALUE, CHANGE_LIST_ITEM, DELETE_LIST_ITEM, GET_AJAX_LIST_ITEM} from './actionTypes'
+import { CHANGE_INPUT_VALUE, CHANGE_LIST_ITEM, DELETE_LIST_ITEM, INIT_LIST_ACTION} from './actionTypes'
 
 
 const defaultState = {
@@ -29,7 +29,7 @@ export default (state = defaultState, action) => {
         return newState;
     }
 
-    if (action.type === GET_AJAX_LIST_ITEM) {
+    if (action.type === INIT_LIST_ACTION) {
         const newState = JSON.parse(JSON.stringify(state));
         newState.list = [...action.data];
         return newState;
