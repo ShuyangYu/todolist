@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import TodoItem from './TodoItem';
 import axios from 'axios'
 import store from './store'
-import { getInputChangeAction, getAddItemAction, getItemDeleteAction } from './store/actionCreators'
+import { getInputChangeAction, getAddItemAction, getItemDeleteAction, getAjaxItemListAction } from './store/actionCreators'
 import TodoListUI from './TodoListUI'
 
 
@@ -28,6 +28,16 @@ class TodoList extends Component {
                     handleBtnClick={this.handleBtnClick}
                     handleItemDelete={this.handleItemDelete}
                 />
+    }
+
+    componentDidMount() {
+        axios.get('/api/itemList')
+            .then((res) => {
+                const data = res.data;
+                const action = getAjaxItemListAction(data);
+                console.log(action);
+                store.dispatch(action);
+            })
     }
 
     handleInputChange(e) {
